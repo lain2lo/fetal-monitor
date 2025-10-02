@@ -10,7 +10,7 @@ description = 'ktg-monitor'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+            languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -20,6 +20,15 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'com.kohlschutter.junixsocket:junixsocket-core:2.8.2'
+    implementation 'com.kohlschutter.junixsocket:junixsocket-native-common:2.8.2'
+    implementation 'com.kohlschutter.junixsocket:junixsocket-native-custom:2.8.2'
+
+    implementation 'com.microsoft.onnxruntime:onnxruntime:1.23.0'
+    implementation 'org.nd4j:nd4j-native-platform:1.0.0-M2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation("org.projectlombok:lombok:1.18.42")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
