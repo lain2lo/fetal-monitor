@@ -79,7 +79,7 @@ public class UnixSocketServer {
         }
 
         try {
-            ProcessBuilder pb = new ProcessBuilder("python3", "emulator.py");
+            ProcessBuilder pb = new ProcessBuilder("python3", "/app/emulator.py");
             pb.redirectErrorStream(true); // объединяем stdout и stderr
             pythonProcess = pb.start();
 

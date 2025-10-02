@@ -2,7 +2,6 @@
 FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 
-# Копируем Gradle Wrapper и файлы проекта
 COPY gradlew .
 COPY gradle/ gradle/
 COPY build.gradle settings.gradle gradle ./
@@ -11,23 +10,21 @@ COPY emulator.py .
 COPY model_v0_28.09.25.onnx .
 COPY seq2seq_v0_30.09.25.onnx .
 
-# Делаем wrapper исполняемым
 RUN chmod +x gradlew
 
-# Собираем fat JAR через Gradle Wrapper
 RUN ./gradlew clean bootJar --no-daemon
 
-# Stage 2: Runtime
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Копируем JAR и вспомогательные файлы
+RUN apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /app/build/libs/*.jar app.jar
 COPY emulator.py .
 COPY model_v0_28.09.25.onnx .
 COPY seq2seq_v0_30.09.25.onnx .
-COPY uterus.csv .
 COPY bpm.csv .
+COPY uterus.csv .
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

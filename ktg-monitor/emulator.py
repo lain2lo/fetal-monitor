@@ -68,7 +68,7 @@ def send_samples_with_delay(samples):
     sock.close()
 
 if __name__ == "__main__":
-    bpm_data = read_csv("bpm.csv")
-    uterus_data = read_csv("uterus.csv")
+    bpm_data = read_csv("/app/bpm.csv")
+    uterus_data = read_csv("/app/uterus.csv")
     samples = synchronize_data(bpm_data, uterus_data)
     send_samples_with_delay(samples)
